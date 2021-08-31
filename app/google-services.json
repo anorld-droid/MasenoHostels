@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "319646030439",
+    "project_id": "masenohostels",
+    "storage_bucket": "masenohostels.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:319646030439:android:ecc6224a821580371b12c2",
+        "android_client_info": {
+          "package_name": "com.anorlddroid.masenohostels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "319646030439-hll6l74g2l9uca18kmgjgddf8b68d7uf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anorlddroid.masenohostels",
+            "certificate_hash": "689c0b42cfaaa049dfcb5cecfbe28c4146286b93"
+          }
+        },
+        {
+          "client_id": "319646030439-3v6if7dt7irgp30kq8gvjt5av5hkv7n7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD-1JyNgXcpHLTB9GDhW5YaQbGIAN6EDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "319646030439-3v6if7dt7irgp30kq8gvjt5av5hkv7n7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
