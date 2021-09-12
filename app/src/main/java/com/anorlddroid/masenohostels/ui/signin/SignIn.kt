@@ -176,8 +176,6 @@ fun SignInContent(navController: NavController){
                     errorIndicatorColor = MasenoHostelsTheme.colors.error,
                     unfocusedIndicatorColor = Color.Transparent,
                     trailingIconColor = MasenoHostelsTheme.colors.textSecondary
-
-
                 ),
                 shape = RoundedCornerShape(8.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
@@ -187,17 +185,17 @@ fun SignInContent(navController: NavController){
             .align(Alignment.End)
         ){
             val openDialog = remember { mutableStateOf(false)}
-            Text(
-                text = "Forgot password?",
-                color = Ocean10,
+            TextButton(
                 modifier = Modifier
-                    .padding(top = 2.dp)
-                    .clickable {
-                       openDialog.value = true
-                    },
-                maxLines = 1
-
-            )
+                    .padding(top = 2.dp),
+                onClick = { openDialog.value = true }
+            ) {
+                Text(
+                    text = "Forgot password?",
+                    color = Ocean10,
+                    maxLines = 1
+                )
+            }
             if (openDialog.value){
                 AlertDialog(
                     onDismissRequest = { openDialog.value = false },
@@ -259,21 +257,23 @@ fun SignInContent(navController: NavController){
                     textAlign = TextAlign.Center,
                     maxLines = 1
                 )
-                Text(
-                    text = "Sign Up ",
-                    color = Ocean10,
-                    modifier = Modifier
-                        .clickable {
-                            navController.navigate("signup/SignUp"){
-                                launchSingleTop = true
-                                restoreState = true
-                                popUpTo("signin/SignIn") {
-                                    inclusive = true
-                                }
+                TextButton(
+                    onClick = {
+                        navController.navigate("signup/SignUp"){
+                            launchSingleTop = true
+                            restoreState = true
+                            popUpTo("signin/SignIn") {
+                                inclusive = true
                             }
-                        },
-                    maxLines = 1
-                )
+                        }
+                    }
+                ) {
+                    Text(
+                        text = "Sign Up ",
+                        color = Ocean10,
+                        maxLines = 1
+                    )
+                }
             }
         }
     }
@@ -282,9 +282,4 @@ fun SignInContent(navController: NavController){
 //Validate credentials return true if the account exists and credentials are correct
 fun validateLoginCredetials() : Boolean{
     return true
-}
-
-@Composable
-fun alertDialog(){
-
 }
