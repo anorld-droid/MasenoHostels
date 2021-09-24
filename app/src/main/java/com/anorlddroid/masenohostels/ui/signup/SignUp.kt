@@ -2,6 +2,9 @@ package com.anorlddroid.masenohostels.ui.signup
 
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +30,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import androidx.navigation.NavController
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.VolleyError
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.anorlddroid.masenohostels.ui.components.CircularProgressBar
 import com.anorlddroid.masenohostels.ui.theme.AlphaNearOpaque
 import com.anorlddroid.masenohostels.ui.theme.MasenoHostelsTheme
 import com.anorlddroid.masenohostels.ui.theme.Ocean10
@@ -35,6 +44,7 @@ import com.anorlddroid.tweetheart.ui.components.MasenoHostelsButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.util.HashMap
 
 @Composable
 fun SignUpScreen(
@@ -52,6 +62,8 @@ fun SignUpScreen(
 fun SignUpContent(
     navController: NavController,
 ) {
+    var isDisaplyed by remember { mutableStateOf(false)}
+    Box{
 
         Column(
             modifier = Modifier
@@ -75,6 +87,7 @@ fun SignUpContent(
             }
 
             var username by remember { mutableStateOf("") }
+            var phoneNumber by remember { mutableStateOf("") }
             var idNumber by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
             var confirmPassword by remember { mutableStateOf("") }
@@ -174,10 +187,9 @@ fun SignUpContent(
             }
             Spacer(modifier = Modifier.height(10.dp))
             Column {
-                var phoneNumber by remember { mutableStateOf("") }
                 var errorState by remember { mutableStateOf(false) }
                 var errorMessage by remember { mutableStateOf("") }
-                val maxLength = 9
+                val maxLength = 13
 
                 Text(
                     text = "Phone Number",
@@ -541,6 +553,15 @@ fun SignUpContent(
                 MasenoHostelsButton(
                     onClick = {
                         if (validation == null) {
+                            isDisaplyed = true
+                            postDataUsingVolley(
+                                username = username,
+                                phone = phoneNumber,
+                                identification = idNumber,
+                                password = password,
+                                context = context
+                            )
+                            isDisaplyed = false
                             navController.navigate("home/Home") {
                                 launchSingleTop = true
                             }
@@ -570,25 +591,29 @@ fun SignUpContent(
                         textAlign = TextAlign.Center,
                         maxLines = 1
                     )
-                    Text(
-                        text = "Sign In ",
-                        color = Ocean10,
-                        modifier = Modifier
-                            .clickable {
-                                navController.navigate(
-                                    "signin/SignIn") {
+                    TextButton(
+                        onClick = {
+                            navController.navigate("signin/SignIn") {
                                     launchSingleTop = true
                                     restoreState = true
                                     popUpTo("signup/SignUp") {
                                         inclusive = true
                                     }
-                                }
-                            },
-                        maxLines = 1
-                    )
+                             }
+                        }
+                    ) {
+                        Text(
+                            text = "Sign In ",
+                            color = Ocean10,
+                            maxLines = 1
+                        )
+                    }
+
                 }
             }
         }
+        CircularProgressBar(isDisplayed = isDisaplyed)
+    }
 }
 
 @SuppressLint("CoroutineCreationDuringComposition")
@@ -618,5 +643,76 @@ fun validateSignupCredetials(
        errorText= "Passwords do not match"
         return errorText
     }
+
     return errorText
+}
+
+private fun postDataUsingVolley(
+    username: String,
+    phone: String,
+    identification: String,
+    password: String,
+    context: Context
+) {
+
+    // our django endpoint
+    val url = " http://7f20-41-81-94-210.ngrok.io/register"
+
+    // creating a new variable for our request queue
+    val queue = Volley.newRequestQueue(context)
+
+    // on below line we are calling a string
+    // request method to post the data to our API
+    // in this we are calling a post method.
+    val request: StringRequest = object : StringRequest(
+        Method.POST, url,
+        Response.Listener {
+            // inside on response method we are
+            // hiding our progress bar
+            // and setting data to edit text as empty
+
+
+
+            // on below line we are displaying a success toast message.
+            Toast.makeText(context, "Data added to API", Toast.LENGTH_SHORT).show()
+            //                try {
+            //                    // on below line we are passing our response
+            //                    // to json object to extract data from it.
+            //                    JSONObject respObj = new JSONObject(response);
+            //
+            //                    // below are the strings which we
+            //                    // extract from our json object.
+            //                    String name = respObj.getString("username");
+            //                    String job = respObj.getString("phone");
+            //
+            //                    // on below line we are setting this string s to our text view.
+            //                    responseTV.setText("Name : " + name + "\n" + "Job : " + job);
+            //                } catch (JSONException e) {
+            //                    e.printStackTrace();
+            //                }
+        },
+        Response.ErrorListener { error -> // method to handle errors.
+            Toast.makeText(context, "Error = $error", Toast.LENGTH_SHORT).show()
+            Log.d("FAILURE", "$error")
+        }) {
+        override fun getParams(): Map<String, String>? {
+            // below line we are creating a map for
+            // storing our values in key and value pair.
+            val params: MutableMap<String, String> = HashMap()
+
+            // on below line we are passing our key
+            // and value pair to our parameters.
+            params["username"] = username
+            params["phone"] = phone
+            params["identification"] = identification
+            params["password"] = password
+
+            // at last we are
+            // returning our params.
+            return params
+        }
+    }
+    // below line is to make
+    // a json object request.
+    queue.add(request)
 }
