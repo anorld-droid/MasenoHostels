@@ -656,7 +656,7 @@ private fun postDataUsingVolley(
 ) {
 
     // our django endpoint
-    val url = " http://7f20-41-81-94-210.ngrok.io/register"
+    val url = " https://80cc-196-111-255-90.ngrok.io/register"
 
     // creating a new variable for our request queue
     val queue = Volley.newRequestQueue(context)
@@ -675,21 +675,7 @@ private fun postDataUsingVolley(
 
             // on below line we are displaying a success toast message.
             Toast.makeText(context, "Data added to API", Toast.LENGTH_SHORT).show()
-            //                try {
-            //                    // on below line we are passing our response
-            //                    // to json object to extract data from it.
-            //                    JSONObject respObj = new JSONObject(response);
-            //
-            //                    // below are the strings which we
-            //                    // extract from our json object.
-            //                    String name = respObj.getString("username");
-            //                    String job = respObj.getString("phone");
-            //
-            //                    // on below line we are setting this string s to our text view.
-            //                    responseTV.setText("Name : " + name + "\n" + "Job : " + job);
-            //                } catch (JSONException e) {
-            //                    e.printStackTrace();
-            //                }
+
         },
         Response.ErrorListener { error -> // method to handle errors.
             Toast.makeText(context, "Error = $error", Toast.LENGTH_SHORT).show()
