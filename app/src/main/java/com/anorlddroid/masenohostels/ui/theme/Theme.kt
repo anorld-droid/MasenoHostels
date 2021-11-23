@@ -3,8 +3,6 @@ package com.anorlddroid.masenohostels.ui.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -31,14 +29,14 @@ private val DarkColorPalette = MasenoHostelsColors(
     gradient3_2 = listOf(Rose8, Lavender7, Rose11),
     gradient2_1 = listOf(gradientColor3, gradientColor4),
     gradient2_2 = listOf(Ocean4, Rose2),
-    gradient2_3 = listOf(Lavender3, Rose3),
+    gradient2_3 = listOf(gradientColor5, gradientColor6),
     tornado1 = listOf(Rose4, Ocean3),
     isDark = true
 )
 
 
 private val LightColorPalette = MasenoHostelsColors(
-    brand = gradientColor1,
+    brand = Lavender1,
     brandSecondary = Ocean9,
     uiBackground = Neutral0,
     uiBorder = Neutral4,
@@ -57,7 +55,7 @@ private val LightColorPalette = MasenoHostelsColors(
     gradient3_2 = listOf(Rose2, Lavender3, Rose4),
     gradient2_1 = listOf(gradientColor2, gradientColor1),
     gradient2_2 = listOf(Ocean3, Rose3),
-    gradient2_3 = listOf(Lavender3, Lavender2),
+    gradient2_3 = listOf(gradientColor5, gradientColor6),
     tornado1 = listOf(Rose4, Ocean3),
     isDark = false
 )

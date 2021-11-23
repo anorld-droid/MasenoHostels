@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
 import com.anorlddroid.masenohostels.ui.home.Home
 import com.anorlddroid.masenohostels.ui.signin.SignInContent
 import com.anorlddroid.masenohostels.ui.signup.OtpVerification
@@ -14,6 +15,7 @@ import com.anorlddroid.masenohostels.ui.signup.PhoneNumber
 import com.anorlddroid.masenohostels.ui.signup.SignUpScreen
 import kotlinx.coroutines.CoroutineScope
 
+@ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
 fun MasenoHostelsNavGraph(
