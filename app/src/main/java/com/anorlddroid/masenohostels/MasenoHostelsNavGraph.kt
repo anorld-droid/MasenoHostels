@@ -1,5 +1,6 @@
 package com.anorlddroid.masenohostels
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -13,6 +14,7 @@ import com.anorlddroid.masenohostels.ui.signup.PhoneNumber
 import com.anorlddroid.masenohostels.ui.signup.SignUpScreen
 import kotlinx.coroutines.CoroutineScope
 
+@ExperimentalMaterialApi
 @Composable
 fun MasenoHostelsNavGraph(
     scaffoldState: ScaffoldState,
@@ -38,7 +40,7 @@ fun MasenoHostelsNavGraph(
             OtpVerification(navController, it.arguments?.getString("storedVerificationId"))
         }
         composable("home/Home") {
-            Home()
+            Home(coroutineScope, scaffoldState = scaffoldState)
         }
 
     }

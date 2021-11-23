@@ -29,7 +29,7 @@ private val DarkColorPalette = MasenoHostelsColors(
     gradient6_2 = listOf(Rose11, Lavender7, Rose8, Lavender7, Rose11),
     gradient3_1 = listOf(Rose9, Ocean7, Rose5),
     gradient3_2 = listOf(Rose8, Lavender7, Rose11),
-    gradient2_1 = listOf(Ocean3, Rose3),
+    gradient2_1 = listOf(gradientColor3, gradientColor4),
     gradient2_2 = listOf(Ocean4, Rose2),
     gradient2_3 = listOf(Lavender3, Rose3),
     tornado1 = listOf(Rose4, Ocean3),
@@ -38,7 +38,7 @@ private val DarkColorPalette = MasenoHostelsColors(
 
 
 private val LightColorPalette = MasenoHostelsColors(
-    brand = Lavender5,
+    brand = gradientColor1,
     brandSecondary = Ocean9,
     uiBackground = Neutral0,
     uiBorder = Neutral4,
@@ -55,7 +55,7 @@ private val LightColorPalette = MasenoHostelsColors(
     gradient6_2 = listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4),
     gradient3_1 = listOf(Rose2, Ocean3, Rose4),
     gradient3_2 = listOf(Rose2, Lavender3, Rose4),
-    gradient2_1 = listOf(Rose4, Rose11),
+    gradient2_1 = listOf(gradientColor2, gradientColor1),
     gradient2_2 = listOf(Ocean3, Rose3),
     gradient2_3 = listOf(Lavender3, Lavender2),
     tornado1 = listOf(Rose4, Ocean3),

@@ -2,6 +2,15 @@ package com.anorlddroid.masenohostels.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val gradientColor1 = Color(0xfff9d423)
+val gradientColor2 = Color(0xffff4e50)
+
+val gradientColor3 = Color(0xffc21500)
+val gradientColor4 = Color(0xffffc500)
+
+val gradientColor5 = Color(0xff16a085)
+val gradientColor6 = Color(0xfff4d03f)
+
 val Neutral8 = Color(0xff121212)
 val Neutral7 = Color(0xdef000000)
 val Neutral6 = Color(0x99000000)
