@@ -25,8 +25,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
+import com.anorlddroid.masenohostels.MainDestinations
 import com.anorlddroid.masenohostels.R
 import com.anorlddroid.masenohostels.data.MasenoHostels
 import com.anorlddroid.masenohostels.data.getHostels
@@ -44,7 +46,7 @@ import kotlin.math.max
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun Home(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState) {
+fun Home(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState, navController: NavHostController) {
     val hostels = getHostels()
     val bottomSheetState =
         rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
@@ -59,7 +61,7 @@ fun Home(coroutineScope: CoroutineScope, scaffoldState: ScaffoldState) {
         content = {
             LazyColumn {
                 item {
-                    HomeContent(hostels = hostels)
+                    HomeContent(hostels = hostels, navController)
                 }
             }
         }
@@ -115,13 +117,14 @@ fun HomeTopBar(
 
 @ExperimentalCoilApi
 @Composable
-fun HomeContent(hostels: List<MasenoHostels>) {
+fun HomeContent(hostels: List<MasenoHostels>, navController: NavHostController) {
     Column(modifier = Modifier.padding(1.dp)) {
         VerticalGrid(Modifier.padding(horizontal = 1.dp)) {
             hostels.forEach { hostel ->
                 HomeItem(
                     modifier = Modifier.padding(3.dp),
                     hostel = hostel,
+                    navController = navController
                 )
             }
         }
@@ -139,6 +142,7 @@ fun HomeItem(
     modifier: Modifier = Modifier,
     hostel: MasenoHostels,
     gradient: List<Color> = MasenoHostelsTheme.colors.gradient2_3,
+    navController: NavHostController
 ) {
     Layout(
         modifier = modifier
@@ -146,7 +150,7 @@ fun HomeItem(
             .shadow(elevation = 2.dp, shape = HostelCardShape)
             .clip(HostelCardShape)
             .background(Brush.horizontalGradient(gradient))
-            .clickable { /* todo */ },
+            .clickable { navigateToHostelDetail(hostelId = hostel.id, navController = navController) },
         content = {
             Text(
                 text = hostel.name,
@@ -248,17 +252,15 @@ fun HostelImage(
             contentDescription = contentDescription,
             contentScale = ContentScale.Crop
         )
-//        Image(
-//            painter = rememberImagePainter(
-//                data = imageUrl,
-//                builder = {
-//                    crossfade(true)
-//                    placeholder(drawableResId = R.drawable.placeholder)
-//                }
-//            ),
-//            contentDescription = contentDescription,
-//            modifier = Modifier.fillMaxSize(),
-//            contentScale = ContentScale.Crop,
-//        )
     }
+}
+
+fun navigateToHostelDetail(hostelId: Long, navController: NavHostController) {
+    navController
+        .navigate(
+            "${MainDestinations.HOSTEL_DETAIL_ROUTE}/$hostelId"
+        ) {
+            launchSingleTop = true
+            restoreState = true
+        }
 }
